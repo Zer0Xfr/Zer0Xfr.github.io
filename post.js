@@ -1,5 +1,6 @@
 // Configure Marked.js to use Prism.js for code highlighting
 marked.setOptions({
+  baseUrL: './',
   highlight: function (code, lang) {
     if (Prism.languages[lang]) {
       return Prism.highlight(code, Prism.languages[lang], lang);
