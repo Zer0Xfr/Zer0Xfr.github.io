@@ -21,9 +21,10 @@ body {
     font-weight: bold;
   }
   header .logo {
-    max-width: 100px; /* Adjust to control the size */
+    max-width: 150px; /* Adjust to control the size */
     height: auto;
     margin-bottom: 0.5rem; /* Space between the logo and title */
+    border-radius: 10px;
   }
 
   header nav a:hover {
