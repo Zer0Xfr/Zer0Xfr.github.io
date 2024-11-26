@@ -1,0 +1,112 @@
+/* General Dark Theme */
+body {
+    background-color: #1e1e1e; /* Dark background */
+    color: #d4d4d4; /* Light gray text */
+    font-family: 'Courier New', Courier, monospace; /* Monospaced font */
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    background-color: #252526; /* Slightly lighter for contrast */
+    color: #00ff00; /* Green text */
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid #3c3c3c;
+  }
+  
+  header nav a {
+    color: #00ff00;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  header nav a:hover {
+    text-decoration: underline;
+  }
+  
+  main {
+    padding: 2rem;
+    max-width: 800px;
+    margin: auto;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Markdown Content Styling */
+  h1, h2, h3, h4, h5, h6 {
+    color: #00ff00; /* Terminal-style green */
+    margin-top: 1.5rem;
+  }
+  
+  p {
+    margin: 1rem 0;
+    line-height: 1.6;
+  }
+  
+  a {
+    color: #569cd6; /* Link blue */
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Code Blocks */
+  pre {
+    background-color: #1b1b1b;
+    color: #d4d4d4;
+    padding: 1rem;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 1rem 0;
+    font-size: 14px;
+  }
+  
+  code {
+    color: #c586c0; /* Pink for inline code */
+    font-family: 'Courier New', Courier, monospace;
+  }
+  
+  pre code {
+    color: #d4d4d4; /* Regular text for blocks */
+  }
+  
+  /* Lists */
+  ul {
+    padding-left: 2rem;
+  }
+  
+  ul li {
+    margin: 0.5rem 0;
+  }
+  
+  /* Images */
+  img {
+    max-width: 100%;
+    border: 1px solid #3c3c3c;
+    border-radius: 4px;
+    margin: 1rem 0;
+  }
+  
+  /* Blockquotes */
+  blockquote {
+    border-left: 4px solid #569cd6; /* Blue bar */
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: #a6a6a6; /* Light gray */
+    font-style: italic;
+  }
+  
+  /* Footer */
+  footer {
+    background-color: #252526;
+    color: #6a9955; /* Greenish text */
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    font-size: 14px;
+  }
+  
