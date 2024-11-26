@@ -93,7 +93,7 @@ if this succeeds congrats you can continue with the relay.
 
 RBCD is a relay attack we are going to relay the authentication from one machine to our own using coercion then we are going to relay that authentication attempt to a ADCS and get the certificate then we use that certificate to impersonate the victim account and get the kerberos ticket(TGT).
 
-![[[Relay.png](https://github.com/Zer0Xfr/Zer0Xfr.github.io/blob/main/posts/BeBased/Relay.png)]]
+![Relay.png](https://github.com/Zer0Xfr/Zer0Xfr.github.io/blob/main/posts/BeBased/Relay.png)
  
 Lets start by setting up the relay. We are going to use another Impacket tool called `ntlmrelayx.py`.
 
