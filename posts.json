@@ -6,6 +6,15 @@
       "tags": ["Cyber", "Attacks"],
       "image": "assets/elmofire.jpg",
       "contentFile": "posts/RBCD.md"
+    },
+
+    {
+      "title": "Be Based, Constrain Delegate",
+      "date": "2024-11-25",
+      "description": "A how to for resource base constrain delegation!",
+      "tags": ["Cyber", "Attacks"],
+      "image": "assets/elmofire.jpg",
+      "contentFile": "posts/RBCD.md"
     }
   ]
   
